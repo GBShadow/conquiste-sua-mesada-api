@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreateTodos1623096383613 implements MigrationInterface {
+export default class CreateAmount1623154890999 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'todos',
+        name: 'amount',
         columns: [
           {
             name: 'id',
@@ -14,19 +14,10 @@ export default class CreateTodos1623096383613 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'name',
-            type: 'varchar',
-          },
-          {
-            name: 'value',
+            name: 'total',
             type: 'decimal',
-            precision: 4,
+            precision: 6,
             scale: 2,
-          },
-          {
-            name: 'active',
-            type: 'boolean',
-            default: false,
           },
           {
             name: 'created_at',
@@ -44,6 +35,6 @@ export default class CreateTodos1623096383613 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('todos');
+    await queryRunner.dropTable('amount');
   }
 }

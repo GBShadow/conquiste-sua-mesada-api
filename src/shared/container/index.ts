@@ -6,6 +6,9 @@ import './providers';
 import IUsersRepository from 'modules/users/repositories/interfaces/IUsersRepository';
 import UsersRepository from 'modules/users/typeorm/repositories/UsersRepository';
 
+import IKidsRepository from 'modules/kids/repositories/interfaces/IKidsRepository';
+import KidsRepository from 'modules/kids/typeorm/repositories/KidsRepository';
+
 import IUserTokenRepository from 'modules/users/repositories/interfaces/IUserTokenRepository';
 import UserTokenRepository from 'modules/users/typeorm/repositories/UserTokenRepository';
 
@@ -26,3 +29,5 @@ container.registerSingleton<IUserConfirmationTokenRepository>(
   'UserConfirmationTokenRepository',
   UserConfirmationTokenRepository,
 );
+
+container.registerSingleton<IKidsRepository>('KidsRepository', KidsRepository);

@@ -6,12 +6,11 @@ import AppError from 'shared/errors/AppError';
 import IHashProvider from 'modules/users/providers/HashProvider/interfaces/IHashProvider';
 
 interface Request {
-  user_id: string;
+  user_id: number;
   name: string;
   email: string;
   old_password?: string;
   password?: string;
-  phone: string;
 }
 
 @injectable()
@@ -30,7 +29,6 @@ class UpdateUserService {
     email,
     old_password,
     password,
-    phone,
   }: Request): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
@@ -46,7 +44,6 @@ class UpdateUserService {
 
     user.name = name;
     user.email = email;
-    user.phone = phone;
 
     if (password && !old_password) {
       throw new AppError(

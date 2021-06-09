@@ -3,8 +3,7 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticate from 'shared/middlewares/ensureAuthenticate';
 
-import CreateUserWebController from '../useCases/createUser/CreateUserWebController';
-import CreateUserMobileController from '../useCases/createUser/CreateUserMobileController';
+import CreateUserController from '../useCases/createUser/CreateUserController';
 import ListUserController from '../useCases/listUser/ListUserController';
 import ShowUserController from '../useCases/showUser/ShowUserController';
 import DeleteUserController from '../useCases/deleteUser/DeleteUserController';
@@ -14,8 +13,7 @@ import UpdateProfileController from '../useCases/updateProfile/UpdateProfileCont
 
 const usersRouter = Router();
 
-const createUserWebController = new CreateUserWebController();
-const createUserMobileController = new CreateUserMobileController();
+const createUserWebController = new CreateUserController();
 const listUserController = new ListUserController();
 const showUserController = new ShowUserController();
 const deleteUserController = new DeleteUserController();
@@ -30,24 +28,9 @@ usersRouter.post(
       name: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().min(6).required(),
-      phone: Joi.string().required(),
-      roles: Joi.array().required(),
     },
   }),
   createUserWebController.index,
-);
-
-usersRouter.post(
-  '/mobile',
-  celebrate({
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-      email: Joi.string().email().required(),
-      password: Joi.string().min(6).required(),
-      phone: Joi.string().required(),
-    },
-  }),
-  createUserMobileController.index,
 );
 
 usersRouter.use(ensureAuthenticate);
@@ -72,7 +55,6 @@ usersRouter.put(
       email: Joi.string().email(),
       old_password: Joi.string().min(6),
       password: Joi.string().min(6),
-      phone: Joi.string(),
     },
     [Segments.PARAMS]: {
       id: Joi.string().required(),
@@ -101,7 +83,6 @@ usersRouter.put(
       email: Joi.string().email(),
       old_password: Joi.string().min(6),
       password: Joi.string().min(6),
-      phone: Joi.string(),
     },
   }),
   updateProfileController.index,

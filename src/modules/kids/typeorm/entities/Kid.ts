@@ -4,12 +4,15 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import { Exclude, Expose } from 'class-transformer';
+import User from 'modules/users/typeorm/entities/User';
 
-@Entity('users')
-class User {
+@Entity('kids')
+class Kid {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -17,14 +20,13 @@ class User {
   name: string;
 
   @Column()
-  email: string;
+  user_id: number;
 
-  @Column()
-  @Exclude()
-  password: string;
-
-  @Column()
-  active: boolean;
+  @ManyToOne(() => User, {
+    eager: true,
+  })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column()
   @Exclude()
@@ -42,4 +44,4 @@ class User {
   updated_at: Date;
 }
 
-export default User;
+export default Kid;
