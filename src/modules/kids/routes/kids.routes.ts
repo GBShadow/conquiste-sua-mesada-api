@@ -11,7 +11,7 @@ import UpdateKidController from '../useCases/updateKid/UpdateKidController';
 
 const kidsRouter = Router();
 
-const createKidWebController = new CreateKidController();
+const createKidController = new CreateKidController();
 const listKidController = new ListKidController();
 const showKidController = new ShowKidController();
 const deleteKidController = new DeleteKidController();
@@ -26,7 +26,7 @@ kidsRouter.post(
       name: Joi.string().required(),
     },
   }),
-  createKidWebController.index,
+  createKidController.index,
 );
 
 kidsRouter.get('/', listKidController.index);

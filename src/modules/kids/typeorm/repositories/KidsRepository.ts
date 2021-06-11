@@ -3,6 +3,7 @@ import { getRepository, Repository } from 'typeorm';
 import ICreateKidDTO from 'modules/kids/dtos/ICreateKidDTO';
 import IKidsRepository from 'modules/kids/repositories/interfaces/IKidsRepository';
 
+import IFindByNameDTO from 'modules/kids/dtos/IFindByNameDTO';
 import Kid from '../entities/Kid';
 
 class KidsRepository implements IKidsRepository {
@@ -27,9 +28,12 @@ class KidsRepository implements IKidsRepository {
     return this.ormRepository.save(kid);
   }
 
-  public async findByName(name: string): Promise<Kid | undefined> {
+  public async findByName({
+    name,
+    user_id,
+  }: IFindByNameDTO): Promise<Kid | undefined> {
     const kid = await this.ormRepository.findOne({
-      where: { name },
+      where: { name, user_id },
     });
 
     return kid;
@@ -43,8 +47,8 @@ class KidsRepository implements IKidsRepository {
     return kid;
   }
 
-  public async findAll(): Promise<Kid[] | []> {
-    const kids = await this.ormRepository.find();
+  public async findAll(user_id: number): Promise<Kid[] | []> {
+    const kids = await this.ormRepository.find({ where: { user_id } });
 
     return kids;
   }

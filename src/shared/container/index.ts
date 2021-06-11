@@ -9,6 +9,9 @@ import UsersRepository from 'modules/users/typeorm/repositories/UsersRepository'
 import IKidsRepository from 'modules/kids/repositories/interfaces/IKidsRepository';
 import KidsRepository from 'modules/kids/typeorm/repositories/KidsRepository';
 
+import ITodosRepository from 'modules/todos/repositories/interfaces/ITodosRepository';
+import TodosRepository from 'modules/todos/typeorm/repositories/TodosRepository';
+
 import IUserTokenRepository from 'modules/users/repositories/interfaces/IUserTokenRepository';
 import UserTokenRepository from 'modules/users/typeorm/repositories/UserTokenRepository';
 
@@ -31,3 +34,8 @@ container.registerSingleton<IUserConfirmationTokenRepository>(
 );
 
 container.registerSingleton<IKidsRepository>('KidsRepository', KidsRepository);
+
+container.registerSingleton<ITodosRepository>(
+  'TodosRepository',
+  TodosRepository,
+);

@@ -6,6 +6,7 @@ import passwordRouter from 'modules/users/routes/password.routes';
 import tokenRouter from 'modules/users/routes/token.routes';
 import confirmationRouter from 'modules/users/routes/confirmation.routes';
 import kidsRouter from 'modules/kids/routes/kids.routes';
+import todosRouter from 'modules/todos/routes/todos.routes';
 
 const routes = Router();
 
@@ -16,5 +17,6 @@ routes.use('/password', passwordRouter);
 routes.use('/validate-token', tokenRouter);
 routes.use('/validate-email', confirmationRouter);
 routes.use('/kids', kidsRouter);
+routes.use('/todos', todosRouter);
 
 export default routes;

@@ -18,7 +18,10 @@ class CreateKidService {
   ) {}
 
   public async execute({ name, user_id }: IRequest): Promise<Kid> {
-    const userAlreadyExist = await this.kidsRepository.findByName(name);
+    const userAlreadyExist = await this.kidsRepository.findByName({
+      name,
+      user_id,
+    });
 
     if (userAlreadyExist) {
       throw new AppError('Kid already exist');
