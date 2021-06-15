@@ -10,7 +10,7 @@ export default class UpdateKidController {
     const updateKid = container.resolve(UpdateKidService);
 
     const kid = await updateKid.execute({
-      user_id: Number(id),
+      id: Number(id),
       name,
     });
 

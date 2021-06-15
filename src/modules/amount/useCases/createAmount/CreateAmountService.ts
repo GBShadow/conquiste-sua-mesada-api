@@ -2,41 +2,39 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from 'shared/errors/AppError';
 
-import ITodosRepository from 'modules/todos/repositories/interfaces/ITodosRepository';
-import Todo from 'modules/todos/typeorm/entities/Todo';
+import Amount from 'modules/amount/typeorm/entities/Amount';
 import IKidsRepository from 'modules/kids/repositories/interfaces/IKidsRepository';
+import IAmountRepository from 'modules/amount/repositories/interfaces/IAmountRepository';
 
 type IRequest = {
-  name: string;
-  value: number;
+  total: number;
   kid_id: number;
 };
 
 @injectable()
-class CreateTodoService {
+class CreateAmountService {
   constructor(
     @inject('KidsRepository')
     private kidsRepository: IKidsRepository,
 
-    @inject('TodosRepository')
-    private todosRepository: ITodosRepository,
+    @inject('AmountRepository')
+    private amountRepository: IAmountRepository,
   ) {}
 
-  public async execute({ name, value, kid_id }: IRequest): Promise<Todo> {
+  public async execute({ total, kid_id }: IRequest): Promise<Amount> {
     const kid = await this.kidsRepository.findById(kid_id);
 
     if (!kid) {
       throw new AppError('Kid does not exist');
     }
 
-    const todo = await this.todosRepository.create({
-      name,
-      value,
+    const amount = await this.amountRepository.create({
+      total,
       kid_id,
     });
 
-    return todo;
+    return amount;
   }
 }
 
-export default CreateTodoService;
+export default CreateAmountService;
