@@ -35,6 +35,14 @@ class AmountRepository implements IAmountRepository {
     return amount;
   }
 
+  public async findByKidId(kid_id: number): Promise<Amount | undefined> {
+    const amount = await this.ormRepository.findOne({
+      where: { kid_id },
+    });
+
+    return amount;
+  }
+
   public async findAll(kid_id: number): Promise<Amount[] | []> {
     const amounts = await this.ormRepository.find({ where: { kid_id } });
 
