@@ -42,13 +42,17 @@ class KidsRepository implements IKidsRepository {
   public async findById(id: number): Promise<Kid | undefined> {
     const kid = await this.ormRepository.findOne({
       where: { id },
+      relations: ['todos', 'amount'],
     });
 
     return kid;
   }
 
   public async findAll(user_id: number): Promise<Kid[] | []> {
-    const kids = await this.ormRepository.find({ where: { user_id } });
+    const kids = await this.ormRepository.find({
+      where: { user_id },
+      relations: ['todos', 'amount'],
+    });
 
     return kids;
   }

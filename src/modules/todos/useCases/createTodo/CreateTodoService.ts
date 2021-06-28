@@ -6,9 +6,13 @@ import ITodosRepository from 'modules/todos/repositories/interfaces/ITodosReposi
 import Todo from 'modules/todos/typeorm/entities/Todo';
 import IKidsRepository from 'modules/kids/repositories/interfaces/IKidsRepository';
 
-type IRequest = {
+type ITodo = {
   name: string;
   value: number;
+};
+
+type IRequest = {
+  todos: ITodo[];
   kid_id: number;
 };
 
@@ -22,7 +26,7 @@ class CreateTodoService {
     private todosRepository: ITodosRepository,
   ) {}
 
-  public async execute({ name, value, kid_id }: IRequest): Promise<Todo> {
+  public async execute({ todos, kid_id }: IRequest): Promise<Todo> {
     const kid = await this.kidsRepository.findById(kid_id);
 
     if (!kid) {
@@ -30,8 +34,7 @@ class CreateTodoService {
     }
 
     const todo = await this.todosRepository.create({
-      name,
-      value,
+      todos,
       kid_id,
     });
 

@@ -4,8 +4,8 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 
 import Kid from 'modules/kids/typeorm/entities/Kid';
@@ -21,9 +21,7 @@ class Amount {
   @Column()
   kid_id: number;
 
-  @ManyToOne(() => Kid, {
-    eager: true,
-  })
+  @OneToOne(() => Kid, kid => kid.amount)
   @JoinColumn({ name: 'kid_id' })
   kid: Kid;
 

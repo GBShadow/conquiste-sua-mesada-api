@@ -36,8 +36,8 @@ class EtherealMailProvider implements IMailProvider {
   }: ISenMailDTO): Promise<string | boolean> {
     const message = await this.client.sendMail({
       from: {
-        name: from?.name || 'Equipe Doe Sangue',
-        address: from?.email || 'equipe@doesangue.com',
+        name: from?.name || 'Equipe Conquiste sua Mesada',
+        address: from?.email || 'mesada@mesada.com',
       },
       to: {
         name: to.name,

@@ -27,7 +27,6 @@ class User {
   active: boolean;
 
   @Column()
-  @Exclude()
   avatar: string;
 
   @Expose({ name: 'avatar_url' })

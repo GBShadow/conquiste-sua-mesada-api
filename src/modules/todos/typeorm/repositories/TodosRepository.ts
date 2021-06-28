@@ -12,42 +12,44 @@ class TodosRepository implements ITodosRepository {
     this.ormRepository = getRepository(Todo);
   }
 
-  public async create({ name, kid_id, value }: ICreateTodoDTO): Promise<Todo> {
-    const kid = this.ormRepository.create({
-      kid_id,
-      name,
-      value,
-    });
+  public async create({ todos, kid_id }: ICreateTodoDTO): Promise<Todo[]> {
+    const newTodos = todos.map(todo =>
+      this.ormRepository.create({
+        kid_id,
+        name: todo.name,
+        value: todo.value,
+      }),
+    );
 
-    await this.ormRepository.save(kid);
+    await this.ormRepository.save(newTodos);
 
-    return kid;
+    return newTodos;
   }
 
-  public async save(kid: Todo): Promise<Todo> {
-    return this.ormRepository.save(kid);
+  public async save(todos: Todo[]): Promise<Todo[]> {
+    return this.ormRepository.save(todos);
   }
 
   public async findByName(name: string): Promise<Todo | undefined> {
-    const kid = await this.ormRepository.findOne({
+    const todo = await this.ormRepository.findOne({
       where: { name },
     });
 
-    return kid;
+    return todo;
   }
 
   public async findById(id: number): Promise<Todo | undefined> {
-    const kid = await this.ormRepository.findOne({
+    const todo = await this.ormRepository.findOne({
       where: { id },
     });
 
-    return kid;
+    return todo;
   }
 
   public async findAll(kid_id: number): Promise<Todo[] | []> {
-    const kids = await this.ormRepository.find({ where: { kid_id } });
+    const todos = await this.ormRepository.find({ where: { kid_id } });
 
-    return kids;
+    return todos;
   }
 
   public async delete(id: number): Promise<void> {

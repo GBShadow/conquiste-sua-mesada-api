@@ -5,13 +5,12 @@ import CreateTodoService from './CreateTodoService';
 
 export default class CreateTodoController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { name, value, kid_id } = request.body;
+    const { todos, kid_id } = request.body;
 
     const createTodo = container.resolve(CreateTodoService);
 
     const todo = await createTodo.execute({
-      name,
-      value,
+      todos,
       kid_id,
     });
 

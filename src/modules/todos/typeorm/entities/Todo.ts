@@ -27,9 +27,7 @@ class Todo {
   @Column()
   kid_id: number;
 
-  @ManyToOne(() => Kid, {
-    eager: true,
-  })
+  @ManyToOne(() => Kid, kid => kid.todos)
   @JoinColumn({ name: 'kid_id' })
   kid: Kid;
 

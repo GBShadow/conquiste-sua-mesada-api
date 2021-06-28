@@ -6,10 +6,15 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
+  OneToOne,
+  JoinTable,
 } from 'typeorm';
 
 import { Exclude, Expose } from 'class-transformer';
 import User from 'modules/users/typeorm/entities/User';
+import Todo from 'modules/todos/typeorm/entities/Todo';
+import Amount from 'modules/amount/typeorm/entities/Amount';
 
 @Entity('kids')
 class Kid {
@@ -29,7 +34,20 @@ class Kid {
   user: User;
 
   @Column()
-  @Exclude()
+  todo_id: number;
+
+  @OneToMany(() => Todo, todos => todos.kid)
+  @JoinTable({ name: 'todo_id' })
+  todos: Todo[];
+
+  @Column()
+  amount_id: number;
+
+  @OneToOne(() => Amount, amount => amount.kid)
+  @JoinColumn({ name: 'user_id' })
+  amount: Amount;
+
+  @Column()
   avatar: string;
 
   @Expose({ name: 'avatar_url' })
