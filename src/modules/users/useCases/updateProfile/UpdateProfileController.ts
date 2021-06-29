@@ -6,7 +6,7 @@ import UpdateProfileService from './UpdateProfileService';
 export default class UpdateUserController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { id } = request.user;
-    const { name, email, old_password, password, phone } = request.body;
+    const { name, email, old_password, password } = request.body;
 
     const updateProfile = container.resolve(UpdateProfileService);
 
@@ -16,7 +16,6 @@ export default class UpdateUserController {
       email,
       old_password,
       password,
-      phone,
     });
 
     return response.status(200).json(classToClass(user));

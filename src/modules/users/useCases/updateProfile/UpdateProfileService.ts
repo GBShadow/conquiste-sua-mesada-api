@@ -11,7 +11,6 @@ interface Request {
   email: string;
   old_password?: string;
   password?: string;
-  phone: string;
 }
 
 @injectable()
@@ -30,7 +29,6 @@ class UpdateProfileService {
     email,
     old_password,
     password,
-    phone,
   }: Request): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
@@ -46,7 +44,6 @@ class UpdateProfileService {
 
     user.name = name;
     user.email = email;
-    user.phone = phone;
 
     if (password && !old_password) {
       throw new AppError(

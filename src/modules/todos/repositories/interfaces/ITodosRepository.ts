@@ -6,7 +6,7 @@ type ITodosRepository = {
   findAll(kid_id: number): Promise<Todo[] | []>;
   delete(id: number): Promise<void>;
   create(data: ICreateTodoDTO): Promise<Todo[]>;
-  save(data: Todo[]): Promise<Todo[]>;
+  save(data: Todo): Promise<Todo>;
 };
 
 export default ITodosRepository;

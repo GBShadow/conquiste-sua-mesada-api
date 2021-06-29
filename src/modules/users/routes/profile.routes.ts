@@ -23,7 +23,6 @@ profileRouter.put(
       email: Joi.string().email(),
       old_password: Joi.string().min(6),
       password: Joi.string().min(6),
-      phone: Joi.string(),
     },
   }),
   updateProfileController.index,

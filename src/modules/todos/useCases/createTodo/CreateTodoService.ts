@@ -26,7 +26,7 @@ class CreateTodoService {
     private todosRepository: ITodosRepository,
   ) {}
 
-  public async execute({ todos, kid_id }: IRequest): Promise<Todo> {
+  public async execute({ todos, kid_id }: IRequest): Promise<Todo[]> {
     const kid = await this.kidsRepository.findById(kid_id);
 
     if (!kid) {
